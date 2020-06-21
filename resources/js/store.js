@@ -8,5 +8,6 @@ export default {
         }
     },
     mutations: {},
-    actions: {}
+    actions: {},
+    modules: {}
 }
