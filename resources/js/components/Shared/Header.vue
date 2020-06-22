@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <router-link :to="{name: 'login'}" class="btn nav-button text-uppercase">Login</router-link>
+              <router-link :to="{name: 'signin'}" class="btn nav-button text-uppercase">Login</router-link>
             </li>
             <li class="nav-item">
               <router-link :to="{name: 'signup'}" class="btn nav-button text-uppercase">Register</router-link>
