@@ -1,19 +1,9 @@
 <template>
   <div>
     <div v-if="rexpliesExists">
-      <div class="card mb-3">
-        <div class="card-header pl-0 pr-0">
-          <div class="row no-gutters w-100 align-items-center">
-            <div class="col-4 text-muted ml-3">
-              <div class="row no-gutters align-items-center">
-                <div class="col-2">Reply By</div>
-              </div>
-            </div>
-            <div class="col"></div>
-            <div class="col"></div>
-          </div>
-        </div>
-        <div v-for="(reply, index) in replies" :key="index">
+      <div class="card">
+        <div class="card-header bg-white">Replies</div>
+        <div class="card-body pb-0" v-for="(reply, index) in replies" :key="index">
           <replies-list-item
             :id="reply.id"
             :body="reply.body"
@@ -21,6 +11,7 @@
             :created_at="reply.created_at"
             :like_count="reply.like_count"
           ></replies-list-item>
+          <hr class="m-0" v-if="index  != (replies.length -1)" />
         </div>
       </div>
     </div>
@@ -30,9 +21,10 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import RepliesListItem from "./RepliesListItem";
 export default {
+  props: ["questionSlug"],
   components: {
     RepliesListItem
   },
@@ -41,8 +33,16 @@ export default {
       replies: "replies/allReplies"
     }),
     rexpliesExists() {
-      return this.replies.length != 0;
+      return this.replies.length > 0;
     }
+  },
+  methods: {
+    ...mapActions({
+      getReplies: "replies/fetchAllReplies"
+    })
+  },
+  mounted() {
+    this.getReplies(this.questionSlug);
   }
 };
 </script>

@@ -1,5 +1,36 @@
 <template>
-  <div class="row py-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto mt-5">
+      <h3 class="text-center">
+        <strong>Sign In</strong>
+      </h3>
+      <div class="card card-body shadow p-4 mt-4">
+        <form role="form">
+          <div class="form-group">
+            <label for="email">
+              Email address
+              <span class="text-danger">*</span>
+            </label>
+            <input type="email" id="email" name="email" v-model="form.email" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="password">
+              Password
+              <span class="text-danger">*</span>
+            </label>
+            <input type="password" name="password" v-model="form.password" class="form-control" />
+          </div>
+          <button class="btn btn-primary btn-block mt-4" @click.prevent="submit">Sign In</button>
+          <span class="text-center d-block my-3">Or</span>
+          <div class="text-center">
+            <router-link :to="{ name: 'signup'}">Create an account?</router-link>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row py-5">
     <div class="col-12 row">
       <div class="col-md-5 mx-auto">
         <h3 class="display-4 text-center">LOGIN!!</h3>
@@ -32,7 +63,7 @@
           >Sign in</button>
           <div class="text-center d-flex justify-content-between mt-4">
             <p>
-              OR &nbsp
+              OR &nbsp;
               <router-link :to="{ name:'signup' }" class="font-italic text-muted">
                 <u>Create Account</u>
               </router-link>
@@ -41,35 +72,7 @@
         </form>
       </div>
     </div>
-    <!-- <div class="col-md-6 col-sm-12 mx-auto mt-4">
-      <h2 class="text-center">Sign In</h2>
-      <form @submit.prevent="submit">
-        <div class="row mt-4">
-          <div class="col-md-12 form-group">
-            <label for="email">Email address</label>
-            <input type="email" id="email" v-model="form.email" name="email" class="form-control" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 form-group">
-            <label for="email">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              v-model="form.password"
-              class="form-control"
-            />
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-12 form-group">
-            <button type="submit" class="btn btn-block btn-primary">Sign In</button>
-          </div>
-        </div>
-      </form>
-    </div>-->
-  </div>
+  </div>-->
 </template>
 <script>
 import { mapActions } from "vuex";
@@ -92,9 +95,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.input:focus {
-  border: 2px solid #ccc;
-}
-</style>

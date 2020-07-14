@@ -1,43 +1,65 @@
 <template>
   <div class="row">
-    <div class="col-md-6 col-sm-12 mx-auto mt-4">
-      <h2 class="text-center">Sign Up</h2>
-      <form @submit.prevent>
-        <div class="row mt-4">
-          <div class="col-md-12 form-group">
-            <label for="email">Name</label>
-            <input type="text" id="name" name="name" class="form-control" />
+    <div class="col-md-6 mx-auto mt-5">
+      <h3 class="text-center">
+        <strong>Sign Up</strong>
+      </h3>
+      <div class="card card-body shadow p-4 mt-4">
+        <form>
+          <div class="form-group">
+            <label for="name">
+              Name
+              <span class="text-danger">*</span>
+            </label>
+            <input type="text" id="name" name="name" class="form-control" v-model="form.name" />
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 form-group">
-            <label for="email">Email address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              class="form-control rounded border-0 shadow-sm px-4"
-            />
+
+          <div class="form-group">
+            <label for="email">
+              Email address
+              <span class="text-danger">*</span>
+            </label>
+            <input type="email" id="email" name="email" class="form-control" v-model="form.email" />
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 form-group">
-            <label for="email">Password</label>
-            <input type="password" id="password" name="password" class="form-control" />
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="password">
+                  Password
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="form-control"
+                  v-model="form.password"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="confirmPassword">
+                  Confirm Password
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  class="form-control"
+                  v-model="form.confirmPassword"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 form-group">
-            <label for="email">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" />
+          <button class="btn btn-block btn-primary mt-4" @click.prevent="submit">Sign Up</button>
+          <span class="text-center d-block my-3">Or</span>
+          <div class="text-center">
+            <router-link :to="{ name: 'signin'}">Sign into your account</router-link>
           </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-md-12 form-group">
-            <button type="submit" class="btn btn-block btn-primary">Sign Up</button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -52,6 +74,11 @@ export default {
         confirmPassword: ""
       }
     };
+  },
+  methods: {
+    submit() {
+      console.log("submitted");
+    }
   }
 };
 </script>
