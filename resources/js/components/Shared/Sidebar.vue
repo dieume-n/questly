@@ -1,12 +1,20 @@
 <template>
   <div class="card">
-    <div class="card-header">Top Categories</div>
+    <div class="card-header bg-white">Categories</div>
     <div class="card-body">
-      <div v-for="(category, index) in allCategories" :key="index">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" :id="'defaultCheck1_'+index" />
-          <label class="form-check-label" :for="'defaultCheck1_'+index">{{ category.name }}</label>
-        </div>
+      <div
+        class="nav flex-column nav-pills"
+        id="v-pills-tab"
+        role="tablist"
+        aria-orientation="vertical"
+        v-for="(category, index) in allCategories"
+        :key="index"
+      >
+        <a class="nav-link" href="javascript:void(0)" @click.prevent>
+          <span class="mr-2">></span>
+          <span>{{ category.name }}</span>
+          <span class="float-right">{{ category.questions_count }}</span>
+        </a>
       </div>
     </div>
   </div>

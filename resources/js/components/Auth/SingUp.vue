@@ -12,7 +12,12 @@
         <div class="row">
           <div class="col-md-12 form-group">
             <label for="email">Email address</label>
-            <input type="email" id="email" name="email" class="form-control" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control rounded border-0 shadow-sm px-4"
+            />
           </div>
         </div>
         <div class="row">

@@ -1,9 +1,8 @@
 <template>
   <div>
-    <nav class="navbar bg-white navbar-expand-lg border-bottom navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <div class="container">
-        <router-link :to="{name: 'home'}" class="navbar-brand">QA</router-link>
-
+        <a class="navbar-brand" href="#">Questly</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -17,12 +16,15 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <router-link :to="{name: 'signin'}" class="btn nav-button text-uppercase">Login</router-link>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">
+                Home
+                <span class="sr-only">(current)</span>
+              </a>
             </li>
             <li class="nav-item">
-              <router-link :to="{name: 'signup'}" class="btn nav-button text-uppercase">Register</router-link>
+              <a class="nav-link" href="#">Link</a>
             </li>
           </ul>
         </div>

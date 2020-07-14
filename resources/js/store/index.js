@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import auth from "./modules/auth";
 import categories from "./modules/categories";
 import questions from "./modules/questions";
+import replies from "./modules/replies";
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     modules: {
         auth,
         categories,
-        questions
+        questions,
+        replies
     }
 })

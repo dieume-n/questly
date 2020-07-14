@@ -6,3 +6,15 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+@import '@fortawesome/fontawesome-free/css/all';
+
+.p-10{
+    padding: 10px;
+}
+
+a{
+    &:hover{
+        text-decoration: none;
+    }
+}

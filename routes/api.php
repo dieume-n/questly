@@ -19,3 +19,4 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
 
 Route::apiResource('/categories', 'CategoryController');
 Route::apiResource('/questions', 'QuestionController');
+Route::apiResource('/questions/{question}/replies', 'ReplyController');

@@ -14,7 +14,9 @@ window.Vue = require('vue');
 Vue.use(VueRouter);
 
 Vue.filter('fromNow', value => moment(value).fromNow());
-Vue.filter('excerpt', value => value.substr(0, 60) + "...");
+Vue.filter('calendar', value => moment(value).format("MM/DD/YYYY"));
+Vue.filter('excerpt', value => value.substr(0, 150) + "...");
+
 
 const app = new Vue({
     el: '#app',
@@ -24,3 +26,8 @@ const app = new Vue({
         MainApp
     }
 });
+
+
+// $(function () {
+//     $('[data-toggle="tooltip"]').tooltip()
+// });

@@ -21,10 +21,11 @@ class ReplyResource extends JsonResource
                 'name' => $this->user->name,
                 'path' => $this->user->path
             ],
+            'like_count' => $this->likes()->count(),
             'question' => [
                 'path' => $this->question->path
             ],
-            'updated_at' => $this->updated_at
+            'created_at' => $this->created_at
         ];
     }
 }

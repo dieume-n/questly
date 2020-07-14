@@ -1,17 +1,6 @@
 <template>
   <div>
-    <div class="card mb-3">
-      <div class="card-header pl-0 pr-0">
-        <div class="row no-gutters w-100 align-items-center">
-          <div class="col ml-3">Topics</div>
-          <div class="col-4 text-muted">
-            <div class="row no-gutters align-items-center">
-              <div class="col-4">Replies</div>
-              <div class="col-8">Last update</div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div>
       <div v-for="(question, index) in allQuestions" :key="index">
         <question-list-item
           :title="question.title"
@@ -23,7 +12,7 @@
         ></question-list-item>
       </div>
     </div>
-    <div v-if="pagination" class="d-flex align-self-center">
+    <div v-if="pagination" class="d-flex justify-content-center mt-4">
       <pagination
         :data="pagination"
         @pagination-change-page="changePage"

@@ -4,7 +4,8 @@ export default {
 
     state: {
         questions: [],
-        pagination: null
+        pagination: null,
+        currentQuestions: null
     },
 
     getters: {
@@ -13,6 +14,9 @@ export default {
         },
         getPagination(state) {
             return state.pagination;
+        },
+        getCurrentQuestion(state) {
+            return state.currentQuestions
         }
 
     },
@@ -28,7 +32,10 @@ export default {
             state.questions = data;
         },
         UPDATE_PAGINATION(state, data) {
-            state.pagination = data
+            state.pagination = data;
+        },
+        SET_CURRENT_QUESTION(state, data) {
+            state.currentQuestions = data;
         }
     },
 
@@ -42,6 +49,11 @@ export default {
             let response = await axios.get(`/api/questions?page=${page}`)
             commit('UPDATE_QUESTIONS', response.data.data);
             commit('UPDATE_PAGINATION', Object.assign({}, { links: response.data.links }, { meta: response.data.meta }))
+        },
+        async fetchQuestion({ commit, dispatch }, slug) {
+            let response = await axios.get(`/api/questions/${slug}`);
+            commit('SET_CURRENT_QUESTION', response.data.data);
+            dispatch('replies/fetchAllReplies', response.data.data.slug, { root: true });
         }
 
     }
