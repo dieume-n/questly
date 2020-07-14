@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-6 mx-auto mt-5">
+    <div class="col-md-8 col-lg-6 mx-auto mt-5">
       <h3 class="text-center">
         <strong>Sign Up</strong>
       </h3>

@@ -56491,7 +56491,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-md-6 mx-auto mt-5" }, [
+    _c("div", { staticClass: "col-md-8 col-lg-6 mx-auto mt-5" }, [
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "card card-body shadow p-4 mt-4" }, [
