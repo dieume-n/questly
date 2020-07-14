@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\QuestionResource;
 
 class CategoryController extends Controller
 {
@@ -17,20 +18,25 @@ class CategoryController extends Controller
     {
         return new CategoryResource($category);
     }
-    
+
     public function store(Request $request)
     {
         Category::create($this->validateCategory());
         return response()->json(['message' => 'Category created'], 201);
     }
 
+    public function questions(category $category)
+    {
+        $questions = $category->questions()->paginate(10);
+        return QuestionResource::collection($questions);
+    }
+
     public function update(Category $category)
     {
         $category->update($this->validateCategory());
         return response()->json(['message' => 'Category updated'], 200);
-
     }
-    
+
     public function destroy(Category $category)
     {
         $category->delete();

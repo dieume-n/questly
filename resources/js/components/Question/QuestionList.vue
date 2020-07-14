@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div v-for="(question, index) in allQuestions" :key="index">
+      <div v-for="(question, index) in questions" :key="index">
         <question-list-item
           :title="question.title"
           :slug="question.slug"
@@ -12,45 +12,40 @@
         ></question-list-item>
       </div>
     </div>
-    <div v-if="pagination" class="d-flex justify-content-center mt-4">
-      <pagination
-        :data="pagination"
-        @pagination-change-page="changePage"
-        size="default"
-        :limit="10"
-      >
-        <span slot="prev-nav">&lt; Previous</span>
-        <span slot="next-nav">Next &gt;</span>
-      </pagination>
-    </div>
+    <question-pagination :url="url" />
   </div>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
 import QuestionListItem from "./QuestionListItem";
-import Pagination from "laravel-vue-pagination";
+import QuestionPagination from "../Shared/QuestionPagination";
 export default {
+  props: ["url"],
   components: {
     QuestionListItem,
-    Pagination
+    QuestionPagination
   },
   computed: {
     ...mapGetters({
-      allQuestions: "questions/allQuestions",
+      questions: "questions/getQuestions",
       pagination: "questions/getPagination"
     })
   },
   methods: {
     ...mapActions({
-      fetchAllQuestions: "questions/fetchAllQuestions",
+      setPaginationUrl: "questions/setPaginationUrl",
+      fetchQuestions: "questions/fetchQuestions",
       fetchPaginated: "questions/fetchPaginated"
     }),
     changePage(page) {
-      this.fetchPaginated(page);
+      this.fetchPaginated(this.url, page);
     }
   },
-  created() {
-    this.fetchAllQuestions();
-  }
+  mounted() {
+    console.log(this.url);
+    this.setPaginationUrl(this.url);
+    this.fetchQuestions(this.url);
+  },
+  beforeRouteUpdate(to, from, next) {}
 };
 </script>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Category;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,13 +12,14 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
+Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
     Route::post('signin', 'SignInController');
     Route::post('signout', 'SignOutController');
     Route::get('me', 'MeController');
-    Route::post('refresh','RefreshController');
+    Route::post('refresh', 'RefreshController');
 });
 
 Route::apiResource('/categories', 'CategoryController');
+Route::get('/categories/{category}/questions', 'CategoryController@questions');
 Route::apiResource('/questions', 'QuestionController');
 Route::apiResource('/questions/{question}/replies', 'ReplyController');

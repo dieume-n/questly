@@ -17,14 +17,14 @@ class Category extends Model
             ]
         ];
     }
-    
+
     protected $fillable = ['name'];
-    
+
     public function questions()
     {
         return $this->hasMany(Question::class);
     }
-    
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -38,7 +38,8 @@ class Category extends Model
     /**
      * Always capitalize the name when we save it to the database
      */
-    public function setNameAttribute($value) {
+    public function setNameAttribute($value)
+    {
         $this->attributes['name'] = ucfirst($value);
     }
 }

@@ -3,6 +3,7 @@ import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SingUp";
 import Home from "./components/Home";
 import QuestionView from "./components/Question/QuestionView";
+import CategoryQuestionsView from "./components/Question/CategoryQuestionsView";
 
 const routes = [
     {
@@ -21,10 +22,16 @@ const routes = [
         component: SignUp
     },
     {
+        path: '/categories/:slug/questions',
+        name: 'category questions',
+        component: CategoryQuestionsView
+    },
+    {
         path: '/questions/:slug',
         name: 'question',
         component: QuestionView
-    }
+    },
+
 ];
 
 

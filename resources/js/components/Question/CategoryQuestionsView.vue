@@ -10,18 +10,22 @@
     </div>
   </div>
 </template>
+
 <script>
-import Sidebar from "../components/Shared/Sidebar";
-import QuestionList from "../components/Question/QuestionList";
+import QuestionList from "./QuestionList";
+import Sidebar from "../Shared/Sidebar";
 export default {
   components: {
-    Sidebar,
-    QuestionList
+    QuestionList,
+    Sidebar
   },
   data() {
     return {
-      url: "/api/questions"
+      url: `/api/categories/${this.$route.params.slug}/questions`
     };
+  },
+  mounted() {
+    console.log("mounted");
   }
 };
 </script>

@@ -9,7 +9,7 @@ export default {
     getters: {
         allCategories(state) {
             return state.categories;
-        }
+        },
 
     },
 
@@ -23,7 +23,6 @@ export default {
         async fetchCategories({ commit }) {
             let response = await axios.get('/api/categories')
             commit('SET_CATEGORIES', response.data.data);
-        }
-
+        },
     }
 }

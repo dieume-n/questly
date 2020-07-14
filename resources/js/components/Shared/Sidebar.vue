@@ -10,11 +10,14 @@
         v-for="(category, index) in allCategories"
         :key="index"
       >
-        <a class="nav-link" href="javascript:void(0)" @click.prevent>
-          <span class="mr-2">></span>
+        <router-link
+          :to="{ name: 'category questions', params:{
+            slug: category.slug
+          } }"
+        >
           <span>{{ category.name }}</span>
           <span class="float-right">{{ category.questions_count }}</span>
-        </a>
+        </router-link>
       </div>
     </div>
   </div>
@@ -29,8 +32,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchCategories: "categories/fetchCategories"
-    })
+      fetchCategories: "categories/fetchCategories",
+      fetchQuestions: "categories/fetchCategoryQuestions"
+    }),
+    onSubmit(category) {
+      this.fetchQuestions(category);
+    }
   },
   created() {
     this.fetchCategories();
