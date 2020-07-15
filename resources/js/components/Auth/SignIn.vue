@@ -5,6 +5,7 @@
         <strong>Sign In</strong>
       </h3>
       <div class="card card-body shadow p-4 mt-4">
+        <alert :type="type" :message="message" v-if="error" />
         <form role="form">
           <div class="form-group">
             <label for="email">
@@ -31,22 +32,36 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
       form: {
         email: "",
         password: ""
-      }
+      },
+      error: null,
+      type: null,
+      message: null
     };
+  },
+  computed: {
+    ...mapGetters({
+      authenticated: "auth/authenticated"
+    })
   },
   methods: {
     ...mapActions({
       signIn: "auth/signIn"
     }),
     submit() {
-      this.signIn(this.form);
+      this.signIn(this.form)
+        .then(() => this.$router.push("/"))
+        .catch(err => {
+          this.error = true;
+          this.type = "danger";
+          this.message = "invalid email or password";
+        });
     }
   }
 };
