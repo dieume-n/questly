@@ -42,7 +42,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.url);
     this.setPaginationUrl(this.url);
     this.fetchQuestions(this.url);
   },

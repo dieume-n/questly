@@ -1986,50 +1986,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2285,7 +2241,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
-    console.log(this.url);
     this.setPaginationUrl(this.url);
     this.fetchQuestions(this.url);
   },
@@ -74738,6 +74693,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/middleware/guest.js":
+/*!******************************************!*\
+  !*** ./resources/js/middleware/guest.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return guest; });
+function guest(_ref) {
+  var next = _ref.next,
+      store = _ref.store;
+
+  if (store.getters['auth/authenticated']) {
+    return next({
+      name: 'home'
+    });
+  }
+
+  return next();
+}
+
+/***/ }),
+
 /***/ "./resources/js/routes.js":
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
@@ -74748,41 +74728,74 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_Auth_SignIn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Auth/SignIn */ "./resources/js/components/Auth/SignIn.vue");
-/* harmony import */ var _components_Auth_SingUp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Auth/SingUp */ "./resources/js/components/Auth/SingUp.vue");
-/* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Home */ "./resources/js/components/Home.vue");
-/* harmony import */ var _components_Question_QuestionView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Question/QuestionView */ "./resources/js/components/Question/QuestionView.vue");
-/* harmony import */ var _components_Question_CategoryQuestionsView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Question/CategoryQuestionsView */ "./resources/js/components/Question/CategoryQuestionsView.vue");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
+/* harmony import */ var _components_Auth_SignIn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Auth/SignIn */ "./resources/js/components/Auth/SignIn.vue");
+/* harmony import */ var _components_Auth_SingUp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Auth/SingUp */ "./resources/js/components/Auth/SingUp.vue");
+/* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Home */ "./resources/js/components/Home.vue");
+/* harmony import */ var _components_Question_QuestionView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Question/QuestionView */ "./resources/js/components/Question/QuestionView.vue");
+/* harmony import */ var _components_Question_CategoryQuestionsView__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Question/CategoryQuestionsView */ "./resources/js/components/Question/CategoryQuestionsView.vue");
+/* harmony import */ var _middleware_guest__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./middleware/guest */ "./resources/js/middleware/guest.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
 
+
+
+ // Middlewares
+
+ // import auth from "./middleware/guest";
 
 var routes = [{
   path: "/",
   name: "home",
-  component: _components_Home__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _components_Home__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
   path: '/signin',
   name: 'signin',
-  component: _components_Auth_SignIn__WEBPACK_IMPORTED_MODULE_1__["default"]
+  component: _components_Auth_SignIn__WEBPACK_IMPORTED_MODULE_2__["default"],
+  meta: {
+    middleware: [_middleware_guest__WEBPACK_IMPORTED_MODULE_7__["default"]]
+  }
 }, {
   path: '/signup',
   name: 'signup',
-  component: _components_Auth_SingUp__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _components_Auth_SingUp__WEBPACK_IMPORTED_MODULE_3__["default"],
+  meta: {
+    middleware: [_middleware_guest__WEBPACK_IMPORTED_MODULE_7__["default"]]
+  }
 }, {
   path: '/categories/:slug/questions',
   name: 'category questions',
-  component: _components_Question_CategoryQuestionsView__WEBPACK_IMPORTED_MODULE_5__["default"]
+  component: _components_Question_CategoryQuestionsView__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
   path: '/questions/:slug',
   name: 'question',
-  component: _components_Question_QuestionView__WEBPACK_IMPORTED_MODULE_4__["default"]
+  component: _components_Question_QuestionView__WEBPACK_IMPORTED_MODULE_5__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes,
   mode: 'history'
+});
+router.beforeEach(function (to, from, next) {
+  if (!to.meta.middleware) {
+    return next();
+  }
+
+  var middleware = to.meta.middleware;
+  console.log(middleware);
+  var context = {
+    to: to,
+    from: from,
+    next: next,
+    store: _store_index__WEBPACK_IMPORTED_MODULE_1__["default"]
+  };
+  return middleware[0](_objectSpread({}, context));
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 

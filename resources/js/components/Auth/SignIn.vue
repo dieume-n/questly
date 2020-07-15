@@ -29,50 +29,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="row py-5">
-    <div class="col-12 row">
-      <div class="col-md-5 mx-auto">
-        <h3 class="display-4 text-center">LOGIN!!</h3>
-        <br />
-        <form>
-          <div class="form-group mb-3">
-            <label for="inputEmail" class="custom-label">Email address</label>
-            <input
-              id="inputEmail"
-              type="email"
-              class="form-control rounded border-0 shadow-sm px-4"
-            />
-          </div>
-          <div class="form-group mb-3">
-            <label for="inputPassword" class="custom-label">Password</label>
-            <input
-              id="inputPassword"
-              type="password"
-              class="form-control rounded border-0 shadow-sm px-4"
-            />
-            <br />
-          </div>
-          <div class="custom-control custom-checkbox mb-3">
-            <input id="customCheck1" type="checkbox" checked class="custom-control-input" />
-            <label for="customCheck1" class="custom-control-label">Remember password</label>
-          </div>
-          <button
-            type="submit"
-            class="btn btn-danger btn-block text-uppercase mb-2 rounded shadow-sm"
-          >Sign in</button>
-          <div class="text-center d-flex justify-content-between mt-4">
-            <p>
-              OR &nbsp;
-              <router-link :to="{ name:'signup' }" class="font-italic text-muted">
-                <u>Create Account</u>
-              </router-link>
-            </p>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>-->
 </template>
 <script>
 import { mapActions } from "vuex";
