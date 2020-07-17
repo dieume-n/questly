@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <div class="container">
         <router-link :to="{name: 'home' }" class="navbar-brand">Questly</router-link>
-        <button
+        <!-- <button
           class="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -11,35 +11,53 @@
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          v-if="user"
         >
           <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-          </ul>-->
+        </button>-->
+        <!-- <div></div> -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" v-if="user">
+          <ul class="navbar-nav ml-auto">
+            <b-nav-item-dropdown right class="active">
+              <template v-slot:button-content>{{ user.name }}</template>
+              <b-dropdown-item @click.prevent="logout">Sign Out</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </ul>
         </div>
       </div>
     </nav>
+
     <div class="container">
-      <top-bar v-if="!['signin', 'signup'].includes(this.$route.name)" />
+      <top-bar v-if="!['signin', 'signup', 'ask question'].includes(this.$route.name)" />
     </div>
   </div>
 </template>
 <script>
 import TopBar from "./TopBar";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     TopBar
+  },
+  // data() {
+  //   return {
+  //     route: this.$route.fullPath
+  //   };
+  // },
+  computed: {
+    ...mapGetters({
+      user: "auth/user"
+    })
+  },
+  methods: {
+    ...mapActions({
+      signOut: "auth/signOut"
+    }),
+    logout() {
+      this.signOut()
+        .then(response => this.$router.push("/"))
+        .catch(error => console.log(error));
+    }
   }
 };
 </script>

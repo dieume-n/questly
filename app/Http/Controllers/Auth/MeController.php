@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class MeController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware(['auth:api']);
     }
 
@@ -15,7 +16,7 @@ class MeController extends Controller
     {
         $user = $request->user();
         return response()->json([
-            'name' => $user->name,
+            'name' => ucwords($user->name),
             'email' => $user->email,
         ]);
     }

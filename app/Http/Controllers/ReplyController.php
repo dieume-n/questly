@@ -34,7 +34,6 @@ class ReplyController extends Controller
     {
         $reply->update($this->validateReply());
         return response()->json(['message' => 'Reply updated'], 200);
-
     }
 
 

@@ -1,9 +1,11 @@
 <template>
-  <div>
+  <div class="mb-5">
     <div v-if="rexpliesExists">
-      <div class="card">
-        <div class="card-header bg-white">Replies</div>
-        <div class="card-body pb-0" v-for="(reply, index) in replies" :key="index">
+      <div class="card pb-3">
+        <div class="card-header bg-white">
+          <h4>{{ replies.length }} Replies</h4>
+        </div>
+        <div class="card-body" v-for="(reply, index) in replies" :key="index">
           <replies-list-item
             :id="reply.id"
             :body="reply.body"
@@ -11,7 +13,14 @@
             :created_at="reply.created_at"
             :like_count="reply.like_count"
           ></replies-list-item>
-          <hr class="m-0" v-if="index  != (replies.length -1)" />
+          <!-- <hr class="m-0" v-if="index  != (replies.length -1)" /> -->
+          <hr class="m-0" />
+        </div>
+        <div class="mt-3">
+          <div class="form-group px-3">
+            <textarea name="reply" rows="5" class="form-control"></textarea>
+            <button class="btn btn-primary float-right mt-2">Reply</button>
+          </div>
         </div>
       </div>
     </div>

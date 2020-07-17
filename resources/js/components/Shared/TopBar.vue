@@ -31,12 +31,33 @@
       <router-link
         :to="{ name: 'signin'}"
         class="btn btn-primary d-none d-sm-block mt-sm-3 mt-md-0 d-md-block py-3"
+        v-if="!authenticated"
       >
         <span>
           <i class="fas fa-lock"></i>
         </span>
         <h5 class="d-inline ml-2">Login to ask a question</h5>
       </router-link>
+      <router-link
+        :to="{ name: 'ask question'}"
+        class="btn btn-primary d-none d-sm-block mt-sm-3 mt-md-0 d-md-block py-3"
+        v-else
+      >
+        <span>
+          <i class="fas fa-unlock"></i>
+        </span>
+        <h5 class="d-inline ml-2">ask a question</h5>
+      </router-link>
     </div>
   </div>
 </template>
+<script>
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters({
+      authenticated: "auth/authenticated"
+    })
+  }
+};
+</script>

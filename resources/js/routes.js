@@ -5,11 +5,12 @@ import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SingUp";
 import Home from "./components/Home";
 import QuestionView from "./components/Question/QuestionView";
+import AskQuestion from "./components/Question/AskQuestion";
 import CategoryQuestionsView from "./components/Question/CategoryQuestionsView";
 
 // Middlewares
 import guest from "./middleware/guest";
-// import auth from "./middleware/guest";
+import auth from "./middleware/auth";
 
 
 
@@ -45,10 +46,21 @@ const routes = [
         component: CategoryQuestionsView
     },
     {
+        path: '/questions',
+        name: 'ask question',
+        component: AskQuestion,
+        meta: {
+            middleware: [
+                auth
+            ]
+        }
+    },
+    {
         path: '/questions/:slug',
         name: 'question',
         component: QuestionView
     },
+
 
 ];
 

@@ -3,12 +3,12 @@ export default {
     namespaced: true,
 
     state: {
-        token: null,
+        token: localStorage.getItem('token') || '',
         user: null
     },
     getters: {
         authenticated(state) {
-            return state.token && state.user;
+            return state.token ? true : false; //&& state.user;
         },
         user(state) {
             return state.user;
@@ -29,6 +29,17 @@ export default {
             let response = await axios.post('/api/auth/signin', credentials)
             return dispatch('attempt', response.data.access_token);
         },
+        signOut({ commit }) {
+            return new Promise((resolve, reject) => {
+                axios.post('/api/auth/signout').then(response => {
+                    commit('SET_TOKEN', null);
+                    commit('SET_USER', null);
+                    resolve(response);
+                }).catch(error => {
+                    reject(error);
+                })
+            })
+        },
         // async attempt({ commit }, token) {
         //     commit('SET_TOKEN', token)
         //     try {
@@ -39,7 +50,15 @@ export default {
         //         commit('SET_USER', null);
         //     }
         // },
-        attempt({ commit }, token) {
+        attempt({ commit, state }, token) {
+            if (token) {
+                commit('SET_TOKEN', token)
+            }
+
+            if (!state.token) {
+                return;
+            }
+
             return new Promise((resolve, reject) => {
                 commit('SET_TOKEN', token)
                 axios.get('/api/auth/me').then(response => {

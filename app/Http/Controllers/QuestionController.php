@@ -8,6 +8,10 @@ use App\Http\Resources\QuestionResource;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:api'], ['except' => ['index', 'show']]);
+    }
     public function index()
     {
         return QuestionResource::collection(Question::latest()->paginate(10));
@@ -26,7 +30,7 @@ class QuestionController extends Controller
 
     public function store(Request $request)
     {
-        Question::create($this->validateQuestion());
+        $request->user()->questions()->create($this->validateQuestion());
         return response()->json(['message' => 'Question created'], 201);
     }
 
@@ -42,7 +46,6 @@ class QuestionController extends Controller
             'title' => 'required|max:255',
             'body' => 'required',
             'category_id' => 'required|numeric|min:1',
-            'user_id' => 'required|numeric|min:1'
         ]);
     }
 }

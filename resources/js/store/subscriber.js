@@ -6,10 +6,18 @@ store.subscribe((mutation) => {
             if (mutation.payload) {
                 window.axios.defaults.headers.common['Authorization'] = `Bearer ${mutation.payload}`;
                 localStorage.setItem('token', mutation.payload);
+                console.log('auth set');
             } else {
-                window.axios.defaults.headers.common['Authorization'] = null;
+                delete window.axios.defaults.headers.common['Authorization'];
                 localStorage.removeItem('token');
             }
             break;
+        // case 'auth/SET_USER':
+        //     if (mutation.payload) {
+        //         localStorage.setItem('user', JSON.stringify(mutation.payload))
+        //     } else {
+        //         localStorage.removeItem('user');
+        //     }
+        //     break;
     }
 })
