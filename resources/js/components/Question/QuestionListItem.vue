@@ -25,6 +25,7 @@
   </div>
 </template>
 <script>
+import marked from "marked";
 export default {
   props: {
     title: String,
@@ -33,6 +34,11 @@ export default {
     created_at: String,
     reply_count: Number,
     content: String
+  },
+  computed: {
+    showContent: function() {
+      return marked(this.content);
+    }
   }
 };
 </script>

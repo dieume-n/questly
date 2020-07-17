@@ -8,7 +8,7 @@
             <span class="text-primary">{{ question.author.name }}</span>
             asked {{ question.created_at|fromNow }}
           </p>
-          <p>{{ question.body }}</p>
+          <p v-html="showQuestion"></p>
         </div>
         <div class="mt-4">
           <replies-list :question-slug="questionSlug"></replies-list>
@@ -24,6 +24,7 @@
 import { mapGetters, mapActions } from "vuex";
 import RepliesList from "../Replies/RepliesList";
 import Sidebar from "../Shared/Sidebar";
+import marked from "marked";
 export default {
   components: {
     RepliesList,
@@ -37,7 +38,10 @@ export default {
   computed: {
     ...mapGetters({
       question: "questions/getCurrentQuestion"
-    })
+    }),
+    showQuestion: function() {
+      return marked(this.question.body);
+    }
   },
   methods: {
     ...mapActions({

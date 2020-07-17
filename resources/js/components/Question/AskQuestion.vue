@@ -68,6 +68,7 @@
           >please select the category to which the question belongs</span>
         </div>
         <button class="btn btn-primary" @click.prevent="handleSubmit">Submit</button>
+        <button type="button" class="btn btn-outline-info" @click.prevent="clearForm">Clear</button>
       </form>
     </div>
   </div>
@@ -114,6 +115,12 @@ export default {
 
       storedForm[input] = value; // store new value
       this.saveStorage(storedForm); // save changes into localStorage
+    },
+    clearForm() {
+      this.form.title = null;
+      this.form.body = null;
+      this.form.category_id = null;
+      this.deleteStoredForm();
     },
     saveStorage(form) {
       localStorage.setItem("form", JSON.stringify(form));

@@ -20,6 +20,7 @@
 </template>
 <script>
 import marked from "marked";
+import autosize from "autosize";
 export default {
   props: ["body"],
   data() {
@@ -33,6 +34,9 @@ export default {
       return marked(this.body || "");
     }
   },
+  updated() {
+    autosize(this.$el.querySelector("textarea"));
+  },
   methods: {
     previewPane() {
       this.preview = true;
@@ -42,6 +46,9 @@ export default {
       this.preview = false;
       this.write = true;
     }
+  },
+  mounted() {
+    autosize(this.$el.querySelector("textarea"));
   }
 };
 </script>
