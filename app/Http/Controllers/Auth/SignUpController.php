@@ -14,7 +14,7 @@ class SignUpController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function signup(Request $request)
     {
         $verified = $request->validate([
             'name' => 'required',
@@ -23,5 +23,19 @@ class SignUpController extends Controller
         ]);
         User::create($verified);
         return response()->json(['message' => 'registration ok'], 201);
+    }
+
+
+    public function check(Request $request)
+    {
+        if (!$request->has('email')) {
+            return response()->json([], 200);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return response()->json([], 200);
+        }
+        return response()->json(['error' => 'email already exist'], 400);
     }
 }

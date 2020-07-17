@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
     Route::post('signin', 'SignInController');
-    Route::post('signup', 'SignUpController');
+    Route::post('signup', 'SignUpController@signup');
+    Route::post('check', 'SignUpController@check');
     Route::post('signout', 'SignOutController');
     Route::get('me', 'MeController');
     Route::post('refresh', 'RefreshController');
 });
+
 
 Route::apiResource('/categories', 'CategoryController');
 Route::get('/categories/{category}/questions', 'CategoryController@questions');

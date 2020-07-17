@@ -8,7 +8,18 @@
             Title
             <span class="text-danger">*</span>
           </label>
-          <input type="text" class="form-control" id="title" name="title" v-model="form.title" />
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            v-model="form.title"
+            :class="{'is-invalid': $v.form.title.$error }"
+          />
+          <span
+            v-if="submitted && !$v.form.title.required"
+            class="invalid-feedback"
+          >Title is required</span>
         </div>
         <div class="form-group">
           <label for="body">
@@ -22,20 +33,35 @@
             rows="10"
             class="form-control"
             v-model="form.body"
+            :class="{'is-invalid': $v.form.body.$error }"
           ></textarea>
+          <span
+            v-if="submitted && !$v.form.body.required"
+            class="invalid-feedback"
+          >the body of your question is required</span>
         </div>
         <div class="form-group">
           <label for="category">
             Category
             <span class="text-danger">*</span>
           </label>
-          <select name="category" id="category" class="custom-select" v-model="form.category_id">
+          <select
+            name="category"
+            id="category"
+            class="custom-select"
+            v-model="form.category_id"
+            :class="{'is-invalid': $v.form.category_id.$error }"
+          >
             <option
               v-for="(category, index) in categories"
               :key="index"
               :value="category.id"
             >{{ category.name }}</option>
           </select>
+          <span
+            v-if="submitted && !$v.form.category_id.required"
+            class="invalid-feedback"
+          >please select the category to which the question belongs</span>
         </div>
         <button class="btn btn-primary" @click.prevent="handleSubmit">Submit</button>
       </form>
@@ -44,6 +70,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { required, email } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
@@ -51,8 +78,16 @@ export default {
         title: null,
         body: null,
         category_id: null
-      }
+      },
+      submitted: false
     };
+  },
+  validations: {
+    form: {
+      title: { required },
+      body: { required },
+      category_id: { required }
+    }
   },
   computed: {
     ...mapGetters({
@@ -64,6 +99,12 @@ export default {
       fetchCategories: "categories/fetchCategories"
     }),
     handleSubmit() {
+      this.submitted = true;
+      // Stop here if form is invalid
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
       axios
         .post(`/api/questions`, this.form)
         .then(response => {

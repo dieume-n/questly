@@ -5,13 +5,24 @@
         <strong>Sign Up</strong>
       </h3>
       <div class="card card-body shadow p-4 mt-4">
-        <form>
+        <form role="form" @submit.prevent="submit">
           <div class="form-group">
             <label for="name">
               Name
               <span class="text-danger">*</span>
             </label>
-            <input type="text" id="name" name="name" class="form-control" v-model="form.name" />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              v-model="form.name"
+              :class="{'is-invalid': $v.form.name.$error }"
+            />
+            <span
+              v-if="submitted && !$v.form.name.required"
+              class="invalid-feedback"
+            >Name is required</span>
           </div>
 
           <div class="form-group">
@@ -19,7 +30,26 @@
               Email address
               <span class="text-danger">*</span>
             </label>
-            <input type="email" id="email" name="email" class="form-control" v-model="form.email" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              v-model.lazy="form.email"
+              :class="{'is-invalid': $v.form.email.$error }"
+            />
+            <span
+              v-if="submitted && !$v.form.email.required"
+              class="invalid-feedback"
+            >email address is required</span>
+            <span
+              v-if="submitted && !$v.form.email.email"
+              class="invalid-feedback"
+            >enter a valid email address</span>
+            <span
+              v-if="submitted && !$v.form.email.unique"
+              class="invalid-feedback"
+            >email address already taken</span>
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -34,7 +64,12 @@
                   name="password"
                   class="form-control"
                   v-model="form.password"
+                  :class="{'is-invalid': $v.form.password.$error }"
                 />
+                <span
+                  v-if="submitted && !$v.form.password.required"
+                  class="invalid-feedback"
+                >password is required</span>
               </div>
             </div>
             <div class="col-md-6">
@@ -49,7 +84,16 @@
                   name="confirmPassword"
                   class="form-control"
                   v-model="form.confirmPassword"
+                  :class="{'is-invalid': $v.form.confirmPassword.$error }"
                 />
+                <span
+                  v-if="submitted && !$v.form.confirmPassword.required"
+                  class="invalid-feedback"
+                >confirm your password</span>
+                <span
+                  v-if="submitted && !$v.form.confirmPassword.sameAs"
+                  class="invalid-feedback"
+                >password do not match</span>
               </div>
             </div>
           </div>
@@ -64,6 +108,7 @@
   </div>
 </template>
 <script>
+import { required, email, sameAs } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
@@ -72,11 +117,48 @@ export default {
         email: "",
         password: "",
         confirmPassword: ""
-      }
+      },
+      submitted: false
     };
+  },
+  validations: {
+    form: {
+      name: { required },
+      email: {
+        required,
+        email,
+        unique: value => {
+          if (value === "") return true;
+          console.log(value);
+          return new Promise((resolve, reject) => {
+            return axios
+              .post("/api/auth/check", { email: value })
+              .then(response => {
+                if (200 === response.status) {
+                  resolve(true);
+                }
+              })
+              .catch(error => {
+                resolve(false);
+              });
+          });
+        }
+      },
+      password: { required },
+      confirmPassword: {
+        required,
+        sameAsPassword: sameAs("password")
+      }
+    }
   },
   methods: {
     submit() {
+      this.submitted = true;
+      // Stop here if form is invalid
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
       console.log("submitted");
     }
   }

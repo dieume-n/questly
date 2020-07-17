@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <div class="container">
         <router-link :to="{name: 'home' }" class="navbar-brand">Questly</router-link>
-        <!-- <button
+        <button
           class="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -14,11 +14,14 @@
           v-if="user"
         >
           <span class="navbar-toggler-icon"></span>
-        </button>-->
+        </button>
         <!-- <div></div> -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" v-if="user">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
-            <b-nav-item-dropdown right class="active">
+            <li class="nav-item active" v-if="!user">
+              <router-link :to="{ name: 'signup'}" class="nav-link">SignUp</router-link>
+            </li>
+            <b-nav-item-dropdown right class="active" v-if="user">
               <template v-slot:button-content>{{ user.name }}</template>
               <b-dropdown-item @click.prevent="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
