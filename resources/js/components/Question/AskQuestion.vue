@@ -13,7 +13,8 @@
             class="form-control"
             id="title"
             name="title"
-            v-model="form.title"
+            @input="updateForm('title', $event.target.value)"
+            :value="form.title"
             :class="{'is-invalid': $v.form.title.$error }"
           />
           <span
@@ -26,19 +27,22 @@
             Body
             <span class="text-danger">*</span>
           </label>
-          <textarea
-            name="body"
-            id="body"
-            cols="30"
-            rows="10"
-            class="form-control"
-            v-model="form.body"
-            :class="{'is-invalid': $v.form.body.$error }"
-          ></textarea>
-          <span
-            v-if="submitted && !$v.form.body.required"
-            class="invalid-feedback"
-          >the body of your question is required</span>
+          <m-editor :body="form.body">
+            <textarea
+              name="body"
+              id="body"
+              cols="30"
+              rows="10"
+              class="form-control"
+              @input="updateForm('body', $event.target.value)"
+              :value="form.body"
+              :class="{'is-invalid': $v.form.body.$error }"
+            ></textarea>
+            <span
+              v-if="submitted && !$v.form.body.required"
+              class="invalid-feedback"
+            >the body of your question is required</span>
+          </m-editor>
         </div>
         <div class="form-group">
           <label for="category">
@@ -71,7 +75,11 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
+import MEditor from "../Shared/MEditor";
 export default {
+  components: {
+    MEditor
+  },
   data() {
     return {
       form: {
@@ -98,6 +106,24 @@ export default {
     ...mapActions({
       fetchCategories: "categories/fetchCategories"
     }),
+    updateForm(input, value) {
+      this.form[input] = value;
+
+      let storedForm = this.openStorage(); // extract stored form
+      if (!storedForm) storedForm = {}; // if none exists, default to empty object
+
+      storedForm[input] = value; // store new value
+      this.saveStorage(storedForm); // save changes into localStorage
+    },
+    saveStorage(form) {
+      localStorage.setItem("form", JSON.stringify(form));
+    },
+    openStorage() {
+      return JSON.parse(localStorage.getItem("form"));
+    },
+    deleteStoredForm() {
+      localStorage.removeItem("form");
+    },
     handleSubmit() {
       this.submitted = true;
       // Stop here if form is invalid
@@ -108,12 +134,21 @@ export default {
       axios
         .post(`/api/questions`, this.form)
         .then(response => {
+          this.deleteStoredForm();
           this.$router.push("/");
         })
         .catch(error => console.error(error));
     }
   },
   created() {
+    const storedForm = this.openStorage();
+    if (storedForm) {
+      this.form = {
+        ...this.form,
+        ...storedForm
+      };
+    }
+
     this.fetchCategories();
   }
 };
