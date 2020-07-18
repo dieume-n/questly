@@ -42,11 +42,6 @@ export default {
   components: {
     TopBar
   },
-  // data() {
-  //   return {
-  //     route: this.$route.fullPath
-  //   };
-  // },
   computed: {
     ...mapGetters({
       user: "auth/user"
