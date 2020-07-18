@@ -2,7 +2,9 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <div class="container">
-        <router-link :to="{name: 'home' }" class="navbar-brand">Questly</router-link>
+        <router-link :to="{name: 'home' }" class="navbar-brand">
+          <strong>Questly</strong>
+        </router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -19,11 +21,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active" v-if="!user">
-              <router-link :to="{ name: 'signup'}" class="nav-link">SignUp</router-link>
+              <router-link :to="{ name: 'register'}" class="nav-link">Register</router-link>
             </li>
             <b-nav-item-dropdown right class="active" v-if="user">
               <template v-slot:button-content>{{ user.name }}</template>
-              <b-dropdown-item @click.prevent="logout">Sign Out</b-dropdown-item>
+              <b-dropdown-item @click.prevent="logout">Logout</b-dropdown-item>
             </b-nav-item-dropdown>
           </ul>
         </div>
@@ -31,7 +33,7 @@
     </nav>
 
     <div class="container">
-      <top-bar v-if="!['signin', 'signup', 'ask question'].includes(this.$route.name)" />
+      <top-bar v-if="!['login', 'register', 'ask question'].includes(this.$route.name)" />
     </div>
   </div>
 </template>

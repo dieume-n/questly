@@ -5,7 +5,7 @@
         <question-list-item
           :title="question.title"
           :slug="question.slug"
-          :user="question.author.name"
+          :user="question.author"
           :reply_count="question.reply_count"
           :created_at="question.created_at"
           :content="question.body"

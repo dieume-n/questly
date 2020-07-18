@@ -21,8 +21,9 @@ class QuestionResource extends JsonResource
             'created_at' => $this->created_at,
             'reply_count' => $this->replies()->count(),
             'author' => [
+                'id' => $this->user->id,
                 'name' => $this->user->name,
-                'member_since'=>$this->user->created_at
+                'member_since' => $this->user->created_at
             ],
             'category' => [
                 'name' => $this->category->name,

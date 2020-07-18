@@ -1,10 +1,15 @@
 import VueRouter from "vue-router";
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SingUp";
-import Home from "./components/Home";
+// import Home from "./components/Home";
 import QuestionView from "./components/Question/QuestionView";
 import AskQuestion from "./components/Question/AskQuestion";
+import EditQuestion from "./components/Question/EditQuestion";
 import CategoryQuestionsView from "./components/Question/CategoryQuestionsView";
+
+import Home from "./Pages/Home";
+import Login from "./Pages/Auth/Login";
+import Register from "./Pages/Auth/Register";
 
 import store from "./store";
 
@@ -19,9 +24,9 @@ const routes = [
         component: Home
     },
     {
-        path: '/signin',
-        name: 'signin',
-        component: SignIn,
+        path: '/login',
+        name: 'login',
+        component: Login,
         meta: {
             middleware: [
                 guest
@@ -29,9 +34,9 @@ const routes = [
         }
     },
     {
-        path: '/signup',
-        name: 'signup',
-        component: SignUp,
+        path: '/register',
+        name: 'register',
+        component: Register,
         meta: {
             middleware: [
                 guest
@@ -57,6 +62,11 @@ const routes = [
         path: '/questions/:slug',
         name: 'question',
         component: QuestionView
+    },
+    {
+        path: '/questions/:slug/edit',
+        name: 'edit question',
+        component: EditQuestion
     },
 
 ];

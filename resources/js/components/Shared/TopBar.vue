@@ -29,7 +29,7 @@
     </div>
     <div class="col-12 col-md-3">
       <router-link
-        :to="{ name: 'signin'}"
+        :to="{ name: 'login'}"
         class="btn btn-primary d-none d-sm-block mt-sm-3 mt-md-0 d-md-block py-3"
         v-if="!authenticated"
       >

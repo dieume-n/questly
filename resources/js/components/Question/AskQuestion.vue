@@ -32,22 +32,6 @@
             @input="updateForm('body', $event)"
             ref="markdownEditor"
           />
-          <!-- <m-editor :body="form.body">
-            <textarea
-              name="body"
-              id="body"
-              cols="30"
-              rows="10"
-              class="form-control"
-              @input="updateForm('body', $event.target.value)"
-              :value="form.body"
-              :class="{'is-invalid': $v.form.body.$error }"
-            ></textarea>
-            <span
-              v-if="submitted && !$v.form.body.required"
-              class="invalid-feedback"
-            >the body of your question is required</span>
-          </m-editor>-->
         </div>
         <div class="form-group">
           <label for="category">
@@ -85,7 +69,6 @@ import VueSimplemde from "vue-simplemde";
 import marked from "marked";
 export default {
   components: {
-    // MEditor,
     VueSimplemde
   },
   data() {
