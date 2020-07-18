@@ -44,7 +44,6 @@ export default {
   mounted() {
     this.setPaginationUrl(this.url);
     this.fetchQuestions(this.url);
-  },
-  beforeRouteUpdate(to, from, next) {}
+  }
 };
 </script>

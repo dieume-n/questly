@@ -25,7 +25,7 @@
             </li>
             <b-nav-item-dropdown right class="active" v-if="user">
               <template v-slot:button-content>{{ user.name }}</template>
-              <b-dropdown-item @click.prevent="logout">Logout</b-dropdown-item>
+              <b-dropdown-item @click.prevent="handleLogout">Logout</b-dropdown-item>
             </b-nav-item-dropdown>
           </ul>
         </div>
@@ -51,10 +51,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      signOut: "auth/signOut"
+      logout: "auth/logout"
     }),
-    logout() {
-      this.signOut()
+    handleLogout() {
+      this.logout()
         .then(response => this.$router.push("/"))
         .catch(error => console.log(error));
     }

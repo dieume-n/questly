@@ -9,7 +9,7 @@
           </h3>
           <div class="card card-body shadow p-4 mt-4">
             <alert :type="type" :message="message" v-if="error" />
-            <form role="form" @submit.prevent="submit">
+            <form role="form" @submit.prevent="handleSubmit">
               <div class="form-group">
                 <label for="email">
                   Email address
@@ -49,7 +49,7 @@
                   class="invalid-feedback"
                 >enter your password</span>
               </div>
-              <button class="btn btn-primary btn-block mt-4" @click.prevent="submit">Sign In</button>
+              <button class="btn btn-primary btn-block mt-4" @click.prevent="handleSubmit">Sign In</button>
               <span class="text-center d-block my-3">Or</span>
               <div class="text-center">
                 <router-link :to="{ name: 'signup'}">Create an account?</router-link>
@@ -96,9 +96,9 @@ export default {
   },
   methods: {
     ...mapActions({
-      signIn: "auth/signIn"
+      login: "auth/login"
     }),
-    submit() {
+    handleSubmit() {
       this.submitted = true;
       this.error = null;
 
@@ -108,7 +108,7 @@ export default {
         return;
       }
 
-      this.signIn(this.form)
+      this.login(this.form)
         .then(() => this.$router.push("/"))
         .catch(err => {
           if (401 === err.response.status) {

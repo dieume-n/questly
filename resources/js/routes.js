@@ -11,6 +11,8 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
 
+import ViewQuestion from "./Pages/Questions/ViewQuestion";
+
 import store from "./store";
 
 // Middlewares
@@ -60,8 +62,8 @@ const routes = [
     },
     {
         path: '/questions/:slug',
-        name: 'question',
-        component: QuestionView
+        name: 'viewQuestion',
+        component: ViewQuestion
     },
     {
         path: '/questions/:slug/edit',

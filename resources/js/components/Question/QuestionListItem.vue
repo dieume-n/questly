@@ -3,7 +3,7 @@
     <div class="mt-0 d-flex justify-content-between w-100">
       <div class="flex-grow-1">
         <h5 class="mt-0">
-          <router-link :to="{ name: 'question', params:{slug} }">{{ title }}</router-link>
+          <router-link :to="{ name: 'viewQuestion', params:{slug} }">{{ title }}</router-link>
         </h5>
       </div>
       <div class="ml-auto" v-if="author">

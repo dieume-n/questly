@@ -25,11 +25,11 @@ export default {
     },
 
     actions: {
-        async signIn({ dispatch }, credentials) {
+        async login({ dispatch }, credentials) {
             let response = await axios.post('/api/auth/signin', credentials)
             dispatch('attempt', response.data.access_token);
         },
-        signOut({ commit }) {
+        logout({ commit }) {
             return new Promise((resolve, reject) => {
                 axios.post('/api/auth/signout').then(response => {
                     commit('SET_TOKEN', null);
