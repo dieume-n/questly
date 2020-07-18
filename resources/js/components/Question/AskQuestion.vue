@@ -82,7 +82,6 @@
 import { mapGetters, mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
 import VueSimplemde from "vue-simplemde";
-// import MEditor from "../Shared/MEditor";
 import marked from "marked";
 export default {
   components: {
@@ -123,16 +122,6 @@ export default {
 
       storedForm[input] = value; // store new value
       this.saveStorage(storedForm); // save changes into localStorage
-    },
-    updateForm2({ input, value }) {
-      console.log(`${input} and ${value}`);
-      // this.form[input] = value;
-
-      // let storedForm = this.openStorage(); // extract stored form
-      // if (!storedForm) storedForm = {}; // if none exists, default to empty object
-
-      // storedForm[input] = value; // store new value
-      // this.saveStorage(storedForm); // save changes into localStorage
     },
     clearForm() {
       this.form.title = null;
