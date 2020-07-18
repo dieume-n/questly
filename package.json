@@ -15,7 +15,7 @@
         "cross-env": "^7.0",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
-        "lodash": "^4.17.13",
+        "lodash": "^4.17.19",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",
@@ -25,10 +25,13 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.1",
+        "autosize": "^4.0.2",
         "bootstrap-vue": "^2.15.0",
         "laravel-vue-pagination": "^2.3.1",
+        "marked": "^1.1.1",
         "moment": "^2.27.0",
         "vue-router": "^3.3.4",
+        "vue-simplemde": "^1.1.1",
         "vuelidate": "^0.7.5",
         "vuex": "^3.4.0"
     }

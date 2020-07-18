@@ -59,7 +59,11 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
+import Alert from "../Shared/Alert";
 export default {
+  components: {
+    Alert
+  },
   data() {
     return {
       form: {

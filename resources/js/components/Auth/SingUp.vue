@@ -109,6 +109,7 @@
 </template>
 <script>
 import { required, email, sameAs } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -152,6 +153,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      signIn: "auth/signIn"
+    }),
     submit() {
       this.submitted = true;
       // Stop here if form is invalid
@@ -159,7 +163,14 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
-      console.log("submitted");
+      axios
+        .post("/api/auth/signup", this.form)
+        .then(response => {
+          this.signIn(this.form).then(response => {
+            this.$router.push("/");
+          });
+        })
+        .catch(error => console.error(error));
     }
   }
 };

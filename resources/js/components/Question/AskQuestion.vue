@@ -13,7 +13,8 @@
             class="form-control"
             id="title"
             name="title"
-            v-model="form.title"
+            @input="updateForm('title', $event.target.value)"
+            :value="form.title"
             :class="{'is-invalid': $v.form.title.$error }"
           />
           <span
@@ -26,19 +27,27 @@
             Body
             <span class="text-danger">*</span>
           </label>
-          <textarea
-            name="body"
-            id="body"
-            cols="30"
-            rows="10"
-            class="form-control"
-            v-model="form.body"
-            :class="{'is-invalid': $v.form.body.$error }"
-          ></textarea>
-          <span
-            v-if="submitted && !$v.form.body.required"
-            class="invalid-feedback"
-          >the body of your question is required</span>
+          <vue-simplemde
+            :value="form.body"
+            @input="updateForm('body', $event)"
+            ref="markdownEditor"
+          />
+          <!-- <m-editor :body="form.body">
+            <textarea
+              name="body"
+              id="body"
+              cols="30"
+              rows="10"
+              class="form-control"
+              @input="updateForm('body', $event.target.value)"
+              :value="form.body"
+              :class="{'is-invalid': $v.form.body.$error }"
+            ></textarea>
+            <span
+              v-if="submitted && !$v.form.body.required"
+              class="invalid-feedback"
+            >the body of your question is required</span>
+          </m-editor>-->
         </div>
         <div class="form-group">
           <label for="category">
@@ -64,6 +73,7 @@
           >please select the category to which the question belongs</span>
         </div>
         <button class="btn btn-primary" @click.prevent="handleSubmit">Submit</button>
+        <button type="button" class="btn btn-outline-info" @click.prevent="clearForm">Clear</button>
       </form>
     </div>
   </div>
@@ -71,7 +81,13 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
+import VueSimplemde from "vue-simplemde";
+import marked from "marked";
 export default {
+  components: {
+    // MEditor,
+    VueSimplemde
+  },
   data() {
     return {
       form: {
@@ -98,6 +114,30 @@ export default {
     ...mapActions({
       fetchCategories: "categories/fetchCategories"
     }),
+    updateForm(input, value) {
+      this.form[input] = value;
+
+      let storedForm = this.openStorage(); // extract stored form
+      if (!storedForm) storedForm = {}; // if none exists, default to empty object
+
+      storedForm[input] = value; // store new value
+      this.saveStorage(storedForm); // save changes into localStorage
+    },
+    clearForm() {
+      this.form.title = null;
+      this.form.body = null;
+      this.form.category_id = null;
+      this.deleteStoredForm();
+    },
+    saveStorage(form) {
+      localStorage.setItem("form", JSON.stringify(form));
+    },
+    openStorage() {
+      return JSON.parse(localStorage.getItem("form"));
+    },
+    deleteStoredForm() {
+      localStorage.removeItem("form");
+    },
     handleSubmit() {
       this.submitted = true;
       // Stop here if form is invalid
@@ -106,15 +146,31 @@ export default {
         return;
       }
       axios
-        .post(`/api/questions`, this.form)
+        .post(`/api/questions`, {
+          title: this.form.title,
+          body: marked(this.form.body),
+          category_id: this.form.category_id
+        })
         .then(response => {
+          this.deleteStoredForm();
           this.$router.push("/");
         })
         .catch(error => console.error(error));
     }
   },
   created() {
+    const storedForm = this.openStorage();
+    if (storedForm) {
+      this.form = {
+        ...this.form,
+        ...storedForm
+      };
+    }
+
     this.fetchCategories();
   }
 };
 </script>
+<style scoped>
+@import "~simplemde/dist/simplemde.min.css";
+</style>

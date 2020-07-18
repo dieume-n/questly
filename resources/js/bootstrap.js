@@ -11,8 +11,6 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.headers.get['Accept'] = 'application/json';   // default header for all get request
-window.axios.defaults.headers.post['Accept'] = 'application/json';  // default header for all POST request
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
