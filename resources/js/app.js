@@ -3,12 +3,7 @@ require('./bootstrap');
 import VueRouter from "vue-router";
 import router from "./routes";
 import MainApp from "./MainApp";
-import Alert from './components/Shared/Alert';
 import moment from "moment";
-import Vuelidate from 'vuelidate';
-import { BootstrapVue } from 'bootstrap-vue'
-
-// Install BootstrapVue
 
 import store from "./store"
 
@@ -17,17 +12,11 @@ require('./store/subscriber');
 window.Vue = require('vue');
 
 Vue.use(VueRouter);
-Vue.use(BootstrapVue);
-Vue.use(Vuelidate);
-
 
 Vue.filter('fromNow', value => moment(value).fromNow());
 Vue.filter('calendar', value => moment(value).format("MM/DD/YYYY"));
 Vue.filter('excerpt', value => value.substr(0, 150) + "...");
 
-Vue.component('alert', Alert);
-
-store.dispatch('auth/attempt', localStorage.getItem('token'));
 
 const app = new Vue({
     el: '#app',

@@ -1,18 +1,9 @@
 import VueRouter from "vue-router";
-import store from './store/index';
-
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SingUp";
 import Home from "./components/Home";
 import QuestionView from "./components/Question/QuestionView";
-import AskQuestion from "./components/Question/AskQuestion";
 import CategoryQuestionsView from "./components/Question/CategoryQuestionsView";
-
-// Middlewares
-import guest from "./middleware/guest";
-import auth from "./middleware/auth";
-
-
 
 const routes = [
     {
@@ -23,22 +14,12 @@ const routes = [
     {
         path: '/signin',
         name: 'signin',
-        component: SignIn,
-        meta: {
-            middleware: [
-                guest
-            ]
-        }
+        component: SignIn
     },
     {
         path: '/signup',
         name: 'signup',
-        component: SignUp,
-        meta: {
-            middleware: [
-                guest
-            ]
-        }
+        component: SignUp
     },
     {
         path: '/categories/:slug/questions',
@@ -46,21 +27,10 @@ const routes = [
         component: CategoryQuestionsView
     },
     {
-        path: '/questions',
-        name: 'ask question',
-        component: AskQuestion,
-        meta: {
-            middleware: [
-                auth
-            ]
-        }
-    },
-    {
         path: '/questions/:slug',
         name: 'question',
         component: QuestionView
     },
-
 
 ];
 
@@ -68,23 +38,6 @@ const routes = [
 const router = new VueRouter({
     routes,
     mode: 'history'
-});
-
-router.beforeEach((to, from, next) => {
-    if (!to.meta.middleware) {
-        return next()
-    }
-    const middleware = to.meta.middleware
-
-    const context = {
-        to,
-        from,
-        next,
-        store
-    }
-    return middleware[0]({
-        ...context
-    })
 });
 
 

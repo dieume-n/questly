@@ -38,7 +38,7 @@ export default {
             commit('SET_REPLIES', response.data.data);
             commit('SET_PAGINATION', Object.assign({}, { links: response.data.links }, { meta: response.data.meta }))
         },
-        async fetchPaginated({ commit }, { question, page }) {
+        async fetchPaginated({ commit }, question, page) {
             let response = await axios.get(`/api/questions/${question}/replies?page=${page}`)
             commit('UPDATE_REPLIES', response.data.data);
             commit('UPDATE_PAGINATION', Object.assign({}, { links: response.data.links }, { meta: response.data.meta }))

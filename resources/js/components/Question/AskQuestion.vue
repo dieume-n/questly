@@ -27,7 +27,12 @@
             Body
             <span class="text-danger">*</span>
           </label>
-          <m-editor :body="form.body">
+          <vue-simplemde
+            :value="form.body"
+            @input="updateForm('body', $event)"
+            ref="markdownEditor"
+          />
+          <!-- <m-editor :body="form.body">
             <textarea
               name="body"
               id="body"
@@ -42,7 +47,7 @@
               v-if="submitted && !$v.form.body.required"
               class="invalid-feedback"
             >the body of your question is required</span>
-          </m-editor>
+          </m-editor>-->
         </div>
         <div class="form-group">
           <label for="category">
@@ -76,10 +81,13 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
-import MEditor from "../Shared/MEditor";
+import VueSimplemde from "vue-simplemde";
+// import MEditor from "../Shared/MEditor";
+import marked from "marked";
 export default {
   components: {
-    MEditor
+    // MEditor,
+    VueSimplemde
   },
   data() {
     return {
@@ -116,6 +124,16 @@ export default {
       storedForm[input] = value; // store new value
       this.saveStorage(storedForm); // save changes into localStorage
     },
+    updateForm2({ input, value }) {
+      console.log(`${input} and ${value}`);
+      // this.form[input] = value;
+
+      // let storedForm = this.openStorage(); // extract stored form
+      // if (!storedForm) storedForm = {}; // if none exists, default to empty object
+
+      // storedForm[input] = value; // store new value
+      // this.saveStorage(storedForm); // save changes into localStorage
+    },
     clearForm() {
       this.form.title = null;
       this.form.body = null;
@@ -139,7 +157,11 @@ export default {
         return;
       }
       axios
-        .post(`/api/questions`, this.form)
+        .post(`/api/questions`, {
+          title: this.form.title,
+          body: marked(this.form.body),
+          category_id: this.form.category_id
+        })
         .then(response => {
           this.deleteStoredForm();
           this.$router.push("/");
@@ -160,3 +182,6 @@ export default {
   }
 };
 </script>
+<style scoped>
+@import "~simplemde/dist/simplemde.min.css";
+</style>

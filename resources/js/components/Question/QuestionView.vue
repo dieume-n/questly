@@ -8,7 +8,7 @@
             <span class="text-primary">{{ question.author.name }}</span>
             asked {{ question.created_at|fromNow }}
           </p>
-          <p v-html="showQuestion"></p>
+          <p v-html="content"></p>
         </div>
         <div class="mt-4">
           <replies-list :question-slug="questionSlug"></replies-list>
@@ -39,7 +39,7 @@ export default {
     ...mapGetters({
       question: "questions/getCurrentQuestion"
     }),
-    showQuestion: function() {
+    content: function() {
       return marked(this.question.body);
     }
   },
