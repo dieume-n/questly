@@ -11,7 +11,7 @@
           :to="{name: 'editQuestion', params:{slug} }"
           class="btn btn-outline-info btn-sm"
         >Edit</router-link>
-        <button class="btn btn-danger btn-sm">Delete</button>
+        <button class="btn btn-danger btn-sm" @click.prevent="handleDelete">Delete</button>
       </div>
     </div>
     <div class="d-flex">
@@ -36,7 +36,7 @@
 </template>
 <script>
 import marked from "marked";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   props: {
     title: String,
@@ -58,6 +58,21 @@ export default {
         return false;
       }
       return this.creator.id === this.user.id;
+    }
+  },
+  methods: {
+    ...mapActions({
+      deleteQuestion: "questions/deleteQuestion"
+    }),
+    handleDelete() {
+      this.deleteQuestion(this.slug)
+        .then(() => {
+          this.$toast.open({
+            message: "Your question have been deleted",
+            type: "success"
+          });
+        })
+        .catch(error => console.error(error));
     }
   }
 };

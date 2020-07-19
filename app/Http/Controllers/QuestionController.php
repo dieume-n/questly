@@ -24,6 +24,7 @@ class QuestionController extends Controller
 
     public function destroy(Question $question)
     {
+        $this->authorize('delete', $question);
         $question->delete();
         return response()->json([], 204);
     }
@@ -36,6 +37,7 @@ class QuestionController extends Controller
 
     public function update(Request $request, Question $question)
     {
+        $this->authorize('update', $question);
         $question->update($request->all());
         return response()->json(['message' => 'Question updated'], 200);
     }

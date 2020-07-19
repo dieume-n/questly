@@ -69,6 +69,14 @@ export default {
             commit('SET_CURRENT_QUESTION', response.data.data);
             dispatch('replies/fetchAllReplies', response.data.data.slug, { root: true });
         },
+        deleteQuestion({ dispatch }, slug) {
+            return new Promise((resolve, reject) => {
+                axios.delete(`/api/questions/${slug}`).then(response => {
+                    dispatch('fetchQuestions', '/api/questions');
+                    resolve(response);
+                }).catch(error => reject(error))
+            })
+        }
 
     }
 }
