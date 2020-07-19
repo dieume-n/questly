@@ -1,11 +1,4 @@
 import VueRouter from "vue-router";
-import SignIn from "./components/Auth/SignIn";
-import SignUp from "./components/Auth/SingUp";
-// import Home from "./components/Home";
-import QuestionView from "./components/Question/QuestionView";
-import AskQuestion from "./components/Question/AskQuestion";
-// import EditQuestion from "./components/Question/EditQuestion";
-import CategoryQuestionsView from "./components/Question/CategoryQuestionsView";
 
 import Home from "./Pages/Home";
 import Login from "./Pages/Auth/Login";
@@ -14,6 +7,8 @@ import Register from "./Pages/Auth/Register";
 import CreateQuestion from "./Pages/Questions/CreateQuestion";
 import ViewQuestion from "./Pages/Questions/ViewQuestion";
 import EditQuestion from "./Pages/Questions/EditQuestion";
+
+import CategoryQuestions from "./Pages/Categories/CategoryQuestions";
 
 import store from "./store";
 
@@ -49,8 +44,8 @@ const routes = [
     },
     {
         path: '/categories/:slug/questions',
-        name: 'category questions',
-        component: CategoryQuestionsView
+        name: 'categoryQuestions',
+        component: CategoryQuestions
     },
     {
         path: '/questions',

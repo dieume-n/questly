@@ -10,7 +10,7 @@
               <span class="text-primary">{{ question.author.name }}</span>
               asked {{ question.created_at|fromNow }}
             </p>
-            <p v-html="question.body"></p>
+            <p v-html="content"></p>
           </div>
           <div class="mt-4">
             <replies-list :question-slug="this.$route.params.slug"></replies-list>
@@ -24,10 +24,12 @@
   </div>
 </template>
 <script>
+import marked from "marked";
 import { mapGetters, mapActions } from "vuex";
 import Header from "../../components/Shared/Header";
 import Sidebar from "../../components/Shared/Sidebar";
 import RepliesList from "../../components/Replies/RepliesList";
+
 export default {
   components: {
     Header,

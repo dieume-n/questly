@@ -66,6 +66,7 @@
                       id="password"
                       name="password"
                       class="form-control"
+                      autocomplete="off"
                       v-model="form.password"
                       :class="{'is-invalid': $v.form.password.$error }"
                     />
@@ -86,6 +87,7 @@
                       id="confirmPassword"
                       name="confirmPassword"
                       class="form-control"
+                      autocomplete="off"
                       v-model="form.confirmPassword"
                       :class="{'is-invalid': $v.form.confirmPassword.$error }"
                     />

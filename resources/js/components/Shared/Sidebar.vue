@@ -11,7 +11,7 @@
         :key="index"
       >
         <router-link
-          :to="{ name: 'category questions', params:{
+          :to="{ name: 'categoryQuestions', params:{
             slug: category.slug
           } }"
         >

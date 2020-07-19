@@ -40,6 +40,7 @@
                 <input
                   type="password"
                   name="password"
+                  autocomplete="off"
                   v-model="form.password"
                   class="form-control"
                   :class="{'is-invalid': $v.form.password.$error }"
