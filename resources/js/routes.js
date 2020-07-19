@@ -4,14 +4,16 @@ import SignUp from "./components/Auth/SingUp";
 // import Home from "./components/Home";
 import QuestionView from "./components/Question/QuestionView";
 import AskQuestion from "./components/Question/AskQuestion";
-import EditQuestion from "./components/Question/EditQuestion";
+// import EditQuestion from "./components/Question/EditQuestion";
 import CategoryQuestionsView from "./components/Question/CategoryQuestionsView";
 
 import Home from "./Pages/Home";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
 
+import CreateQuestion from "./Pages/Questions/CreateQuestion";
 import ViewQuestion from "./Pages/Questions/ViewQuestion";
+import EditQuestion from "./Pages/Questions/EditQuestion";
 
 import store from "./store";
 
@@ -52,8 +54,8 @@ const routes = [
     },
     {
         path: '/questions',
-        name: 'ask question',
-        component: AskQuestion,
+        name: 'createQuestion',
+        component: CreateQuestion,
         meta: {
             middleware: [
                 auth
@@ -67,7 +69,7 @@ const routes = [
     },
     {
         path: '/questions/:slug/edit',
-        name: 'edit question',
+        name: 'editQuestion',
         component: EditQuestion
     },
 

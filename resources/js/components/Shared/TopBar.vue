@@ -39,7 +39,7 @@
         <h5 class="d-inline ml-2">Login to ask a question</h5>
       </router-link>
       <router-link
-        :to="{ name: 'ask question'}"
+        :to="{ name: 'createQuestion'}"
         class="btn btn-primary d-none d-sm-block mt-sm-3 mt-md-0 d-md-block py-3"
         v-else
       >

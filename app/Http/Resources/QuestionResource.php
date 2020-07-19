@@ -26,6 +26,7 @@ class QuestionResource extends JsonResource
                 'member_since' => $this->user->created_at
             ],
             'category' => [
+                'id' => $this->category->id,
                 'name' => $this->category->name,
                 'path' => $this->category->path
             ]

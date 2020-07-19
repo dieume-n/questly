@@ -1,7 +1,7 @@
 <template>
-  <div class="mt-4">
+  <div class="pb-4">
     <div class="card card-body">
-      <h3>What is your question?</h3>
+      <h3>Question</h3>
       <form class="mt-2" role="form" @submit.prevent="handleSubmit">
         <div class="form-group">
           <label for="title">
@@ -42,7 +42,8 @@
             name="category"
             id="category"
             class="custom-select"
-            v-model="form.category_id"
+            :value="form.category_id"
+            @input="updateForm('category_id',parseInt($event.target.value))"
             :class="{'is-invalid': $v.form.category_id.$error }"
           >
             <option
@@ -63,11 +64,13 @@
   </div>
 </template>
 <script>
+import { required } from "vuelidate/lib/validators";
 import { mapGetters, mapActions } from "vuex";
-import { required, email } from "vuelidate/lib/validators";
 import VueSimplemde from "vue-simplemde";
-import marked from "marked";
 export default {
+  props: {
+    mainQuestion: Object
+  },
   components: {
     VueSimplemde
   },
@@ -106,29 +109,30 @@ export default {
       storedForm[input] = value; // store new value
       this.saveStorage(storedForm); // save changes into localStorage
     },
+    saveStorage(form) {
+      localStorage.setItem("form", JSON.stringify(form));
+    },
+    openStorage() {
+      return JSON.parse(localStorage.getItem("form"));
+    },
+    deleteStoredForm() {
+      localStorage.removeItem("form");
+    },
+    saveStorage(form) {
+      localStorage.setItem("form", JSON.stringify(form));
+    },
+    openStorage() {
+      return JSON.parse(localStorage.getItem("form"));
+    },
+    deleteStoredForm() {
+      localStorage.removeItem("form");
+    },
     clearForm() {
       this.form.title = null;
       this.form.body = null;
       this.form.category_id = null;
+
       this.deleteStoredForm();
-    },
-    saveStorage(form) {
-      localStorage.setItem("form", JSON.stringify(form));
-    },
-    openStorage() {
-      return JSON.parse(localStorage.getItem("form"));
-    },
-    deleteStoredForm() {
-      localStorage.removeItem("form");
-    },
-    saveStorage(form) {
-      localStorage.setItem("form", JSON.stringify(form));
-    },
-    openStorage() {
-      return JSON.parse(localStorage.getItem("form"));
-    },
-    deleteStoredForm() {
-      localStorage.removeItem("form");
     },
     handleSubmit() {
       this.submitted = true;
@@ -137,20 +141,18 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
-      axios
-        .post(`/api/questions`, {
-          title: this.form.title,
-          body: marked(this.form.body),
-          category_id: this.form.category_id
-        })
-        .then(response => {
-          this.deleteStoredForm();
-          this.$router.push("/");
-        })
-        .catch(error => console.error(error));
+      this.$emit("questionSubmit", this.form);
     }
   },
   created() {
+    const question = this.mainQuestion || {};
+    console.log(question);
+    if (question) {
+      this.form = {
+        ...this.form,
+        ...question
+      };
+    }
     const storedForm = this.openStorage();
     if (storedForm) {
       this.form = {
@@ -158,11 +160,10 @@ export default {
         ...storedForm
       };
     }
-
     this.fetchCategories();
+  },
+  destroyed() {
+    this.clearForm();
   }
 };
 </script>
-<style scoped>
-@import "~simplemde/dist/simplemde.min.css";
-</style>

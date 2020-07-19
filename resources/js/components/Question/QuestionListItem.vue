@@ -8,7 +8,7 @@
       </div>
       <div class="ml-auto" v-if="author">
         <router-link
-          :to="{name: 'edit question', params:{slug} }"
+          :to="{name: 'editQuestion', params:{slug} }"
           class="btn btn-outline-info btn-sm"
         >Edit</router-link>
         <button class="btn btn-danger btn-sm">Delete</button>

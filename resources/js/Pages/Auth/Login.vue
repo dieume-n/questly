@@ -52,7 +52,7 @@
               <button class="btn btn-primary btn-block mt-4" @click.prevent="handleSubmit">Sign In</button>
               <span class="text-center d-block my-3">Or</span>
               <div class="text-center">
-                <router-link :to="{ name: 'signup'}">Create an account?</router-link>
+                <router-link :to="{ name: 'register'}">Create an account?</router-link>
               </div>
             </form>
           </div>
