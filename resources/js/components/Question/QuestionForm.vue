@@ -167,3 +167,6 @@ export default {
   }
 };
 </script>
+<style  scoped>
+@import "~simplemde/dist/simplemde.min.css";
+</style>

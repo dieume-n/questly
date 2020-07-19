@@ -5,7 +5,8 @@ import router from "./routes";
 import MainApp from "./MainApp";
 import moment from "moment";
 import Vuelidate from 'vuelidate';
-import { BootstrapVue } from 'bootstrap-vue'
+import { BootstrapVue } from 'bootstrap-vue';
+import VueToast from 'vue-toast-notification';
 
 import store from "./store"
 
@@ -16,6 +17,10 @@ window.Vue = require('vue');
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
+Vue.use(VueToast, {
+    position: 'top-right',
+    duration: 3000
+});
 
 Vue.filter('fromNow', value => moment(value).fromNow());
 Vue.filter('calendar', value => moment(value).format("MM/DD/YYYY"));

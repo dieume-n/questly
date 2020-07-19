@@ -48,7 +48,13 @@ export default {
     handleSubmit(putData) {
       axios
         .put(`/api/questions/${this.$route.params.slug}`, putData)
-        .then(response => this.$router.push("/"))
+        .then(response => {
+          this.$router.push("/");
+          this.$toast.open({
+            message: "Your question have been updated",
+            type: "success"
+          });
+        })
         .catch(error => console.error(error));
     }
   },
