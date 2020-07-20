@@ -27,7 +27,7 @@ Vue.filter('calendar', value => moment(value).format("MM/DD/YYYY"));
 Vue.filter('excerpt', value => value.substr(0, 150) + "...");
 
 store.dispatch('auth/attempt', localStorage.getItem('token'));
-
+Vue.config.performance = true;
 const app = new Vue({
     el: '#app',
     router,
